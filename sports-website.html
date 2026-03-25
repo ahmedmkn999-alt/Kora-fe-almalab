@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورة في الملعب - الموقع الرياضي الأول</title>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0eff44;
+            --primary-dark: #0acc36;
+            --secondary: #ffd700;
+            --bg-dark: #0a0e1a;
+            --bg-darker: #050810;
+            --card-bg: #151b2d;
+            --text-light: #ffffff;
+            --text-gray: #a0aec0;
+            --accent-red: #ff3366;
+            --accent-blue: #00a8ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Almarai', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(14, 255, 68, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 51, 102, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+            z-index: -1;
+            animation: bgShift 20s ease-in-out infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(15, 27, 45, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(14, 255, 68, 0.5);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .breaking-news {
+            background: linear-gradient(135deg, var(--accent-red), #ff6b9d);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .breaking-badge {
+            background: white;
+            color: var(--accent-red);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .breaking-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Featured News Grid */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .main-feature {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .main-feature img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .main-feature:hover img {
+            transform: scale(1.1);
+        }
+
+        .feature-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .feature-category {
+            background: var(--primary);
+            color: var(--bg-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-meta {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .side-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .side-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+            animation-delay: 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .side-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .side-card:hover {
+            transform: translateX(-10px);
+            border-left-width: 8px;
+            box-shadow: 0 10px 30px rgba(14, 255, 68, 0.2);
+        }
+
+        .side-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .side-card p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Live Matches */
+        .section-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 3rem 0 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .live-matches {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .match-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(14, 255, 68, 0.2);
+        }
+
+        .match-live {
+            background: var(--accent-red);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        .match-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .team {
+            text-align: center;
+            flex: 1;
+        }
+
+        .team-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .score {
+            font-family: 'Cairo', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .vs {
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            margin: 0 1rem;
+        }
+
+        /* News Grid */
+        .news-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .news-card:nth-child(1) { animation-delay: 0.1s; }
+        .news-card:nth-child(2) { animation-delay: 0.2s; }
+        .news-card:nth-child(3) { animation-delay: 0.3s; }
+        .news-card:nth-child(4) { animation-delay: 0.4s; }
+        .news-card:nth-child(5) { animation-delay: 0.5s; }
+        .news-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover .news-image {
+            transform: scale(1.1);
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-category {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-excerpt {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Loading Spinner */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(14, 255, 68, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 3rem auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            margin-top: 4rem;
+            padding: 3rem 2rem 1rem;
+            border-top: 2px solid var(--primary);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-bg);
+            color: var(--text-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-feature {
+                height: 400px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--card-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateX(400px);
+            transition: transform 0.4s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">⚽</div>
+                <span>كورة في الملعب</span>
+            </div>
+            <nav>
+                <a href="#home">الرئيسية</a>
+                <a href="#matches">المباريات</a>
+                <a href="#news">الأخبار</a>
+                <a href="#leagues">الدوريات</a>
+                <a href="#videos">فيديوهات</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="breaking-news">
+            <span class="breaking-badge">🔴 عاجل</span>
+            <span class="breaking-text" id="breakingNews">جاري تحميل آخر الأخبار...</span>
+        </div>
+
+        <div class="featured-grid">
+            <div class="main-feature" id="mainFeature">
+                <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800" alt="Featured">
+                <div class="feature-overlay">
+                    <span class="feature-category">الدوري الإنجليزي</span>
+                    <h2 class="feature-title">جاري تحميل الخبر الرئيسي...</h2>
+                    <p class="feature-meta">منذ دقائق</p>
+                </div>
+            </div>
+
+            <div class="side-features">
+                <div class="side-card">
+                    <h3>محمد صلاح يحطم رقماً قياسياً جديداً</h3>
+                    <p>منذ ساعة واحدة</p>
+                </div>
+                <div class="side-card">
+                    <h3>رونالدو يقود النصر للفوز الكبير</h3>
+                    <p>منذ ساعتين</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Matches -->
+    <div class="live-matches">
+        <h2 class="section-title">🔴 مباريات حية</h2>
+        <div class="matches-grid" id="liveMatches">
+            <!-- Will be populated by JavaScript -->
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <!-- Latest News -->
+    <div class="news-section">
+        <h2 class="section-title">📰 آخر الأخبار</h2>
+        <div class="news-grid" id="newsGrid">
+            <!-- Will be populated by JavaScript -->
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>كورة في الملعب</h3>
+                <p style="color: var(--text-gray)">
+                    أول موقع رياضي عربي يقدم تغطية شاملة لكل الأحداث الرياضية حول العالم
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#">الدوري المصري</a></li>
+                    <li><a href="#">الدوري السعودي</a></li>
+                    <li><a href="#">دوري أبطال أوروبا</a></li>
+                    <li><a href="#">المنتخبات</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تابعنا</h3>
+                <ul>
+                    <li><a href="#">فيسبوك</a></li>
+                    <li><a href="#">تويتر</a></li>
+                    <li><a href="#">إنستجرام</a></li>
+                    <li><a href="#">يوتيوب</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 كورة في الملعب - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <strong>خبر جديد!</strong> تم تحديث الأخبار
+    </div>
+
+    <script>
+        // News API Configuration (استخدم API key خاص بك)
+        const NEWS_API_KEY = 'demo'; // ضع API key من newsapi.org
+        const SPORTS_API_URL = 'https://newsapi.org/v2/everything?q=football+soccer&language=ar&apiKey=' + NEWS_API_KEY;
+
+        // Sample data for demo (في الإنتاج، استخدم APIs حقيقية)
+        const sampleNews = [
+            {
+                title: 'محمد صلاح يسجل هدفين في فوز ليفربول',
+                category: 'الدوري الإنجليزي',
+                excerpt: 'تألق النجم المصري محمد صلاح في مباراة ليفربول وسجل هدفين رائعين قادا الفريق للفوز',
+                image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600',
+                time: 'منذ 15 دقيقة'
+            },
+            {
+                title: 'ريال مدريد يتأهل لنهائي دوري الأبطال',
+                category: 'دوري أبطال أوروبا',
+                excerpt: 'حقق ريال مدريد فوزاً كاسحاً وضمن مكانه في نهائي دوري أبطال أوروبا',
+                image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600',
+                time: 'منذ 30 دقيقة'
+            },
+            {
+                title: 'كريستيانو رونالدو يواصل التألق مع النصر',
+                category: 'الدوري السعودي',
+                excerpt: 'سجل رونالدو هاتريك رائع في مباراة النصر الأخيرة ليصل لـ 35 هدفاً هذا الموسم',
+                image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600',
+                time: 'منذ ساعة'
+            },
+            {
+                title: 'الأهلي المصري يستعد لمواجهة الزمالك',
+                category: 'الدوري المصري',
+                excerpt: 'يستعد الأهلي لمواجهة الزمالك في قمة الدوري المصري المنتظرة نهاية هذا الأسبوع',
+                image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=600',
+                time: 'منذ ساعتين'
+            },
+            {
+                title: 'مبابي يقترب من الانتقال لريال مدريد',
+                category: 'انتقالات',
+                excerpt: 'تقارير إسبانية تؤكد اقتراب كيليان مبابي من الانتقال إلى ريال مدريد الصيف القادم',
+                image: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600',
+                time: 'منذ 3 ساعات'
+            },
+            {
+                title: 'برشلونة يفوز بكأس الملك',
+                category: 'كأس الملك',
+                excerpt: 'تمكن برشلونة من التتويج بلقب كأس الملك بعد فوز مثير على إشبيلية',
+                image: 'https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=600',
+                time: 'منذ 4 ساعات'
+            }
+        ];
+
+        const sampleMatches = [
+            { 
+                home: 'ليفربول', 
+                away: 'مانشستر سيتي', 
+                homeScore: 2, 
+                awayScore: 1, 
+                live: true, 
+                time: '75\'' 
+            },
+            { 
+                home: 'ريال مدريد', 
+                away: 'برشلونة', 
+                homeScore: 3, 
+                awayScore: 2, 
+                live: true, 
+                time: '88\'' 
+            },
+            { 
+                home: 'الأهلي', 
+                away: 'الزمالك', 
+                homeScore: 1, 
+                awayScore: 1, 
+                live: true, 
+                time: '60\'' 
+            }
+        ];
+
+        // Load News
+        function loadNews() {
+            const newsGrid = document.getElementById('newsGrid');
+            newsGrid.innerHTML = '';
+
+            sampleNews.forEach(news => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <img src="${news.image}" alt="${news.title}" class="news-image">
+                    <div class="news-content">
+                        <div class="news-category">${news.category}</div>
+                        <h3 class="news-title">${news.title}</h3>
+                        <p class="news-excerpt">${news.excerpt}</p>
+                        <div class="news-meta">
+                            <span>${news.time}</span>
+                            <span>📖 اقرأ المزيد</span>
+                        </div>
+                    </div>
+                `;
+                newsGrid.appendChild(card);
+            });
+
+            // Update main feature
+            const mainFeature = sampleNews[0];
+            document.querySelector('.feature-title').textContent = mainFeature.title;
+            document.querySelector('.feature-category').textContent = mainFeature.category;
+            document.querySelector('#mainFeature img').src = mainFeature.image;
+
+            // Update breaking news
+            document.getElementById('breakingNews').textContent = mainFeature.title;
+        }
+
+        // Load Live Matches
+        function loadMatches() {
+            const matchesGrid = document.getElementById('liveMatches');
+            matchesGrid.innerHTML = '';
+
+            sampleMatches.forEach(match => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                card.innerHTML = `
+                    ${match.live ? '<span class="match-live">🔴 مباشر</span>' : ''}
+                    <div class="match-teams">
+                        <div class="team">
+                            <div class="team-name">${match.home}</div>
+                        </div>
+                        <div class="score">${match.homeScore} : ${match.awayScore}</div>
+                        <div class="team">
+                            <div class="team-name">${match.away}</div>
+                        </div>
+                    </div>
+                    ${match.live ? `<div style="text-align: center; color: var(--text-gray); margin-top: 1rem;">⏱️ ${match.time}</div>` : ''}
+                `;
+                matchesGrid.appendChild(card);
+            });
+        }
+
+        // Show Toast Notification
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Auto Refresh News (كل 5 دقائق)
+        setInterval(() => {
+            loadNews();
+            showToast();
+        }, 300000);
+
+        // Initialize
+        loadNews();
+        loadMatches();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
